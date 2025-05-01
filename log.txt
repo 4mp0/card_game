@@ -1,0 +1,8 @@
+
+Debug animation -> Make Attack Anim -> Make NPC -> NPC Animation -> NPC Attack
+
+After the code is done:
+Rewrite the code
+
+Required to build:
+Stages
