@@ -1,8 +1,17 @@
 
-Debug animation -> Make Attack Anim -> Make NPC -> NPC Animation -> NPC Attack
+Fight Mechanic
 
 After the code is done:
 Rewrite the code
 
 Required to build:
 Stages
+
+    npc_heart1, npc_heart1Rect = init.npc_hp.getSR(0)
+    npc_heart1Rect.x, npc_heart1Rect.y = 550, 0
+
+    npc_heart2, npc_heart2Rect = init.npc_hp.getSR(1)
+    npc_heart2Rect.x, npc_heart2Rect.y = 530, 0
+
+    npc_heart3, npc_heart3Rect = init.npc_hp.getSR(2)
+    npc_heart3Rect.x, npc_heart3Rect.y = 510, 0

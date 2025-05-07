@@ -5,15 +5,15 @@ class Char(pygame.sprite.Sprite):
     def __init__(self, pos_x: int, pos_y: int ):
         super().__init__()
         self.sprites = []
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/0.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/1.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/2.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/3.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/4.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/5.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/6.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/7.png"))
-        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/main/8.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/0.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/1.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/2.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/3.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/4.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/5.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/6.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/7.png"))
+        self.sprites.append(pygame.image.load("./Gameplay/imgs/char/0/8.png"))
 
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]

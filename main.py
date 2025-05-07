@@ -5,7 +5,6 @@ import init
 import ingame
 import option
 
-
 ### Code is received via init ###
 
 # Controls and Setting #
@@ -22,17 +21,15 @@ frames = pygame.time.Clock()
 pygame.mixer_music.load("./BGM/menu/sound1.mp3")
 pygame.mixer_music.play(999)
 
-# BG #
-
+# Menu BG #
 BG_img = pygame.image.load("./Menu/imgs/bg.jpg").convert()
-
 # Menu #
 play_buttonSurf, play_buttonRect = init.menu_buttons.getSR(0)
 play_buttonRect.x, play_buttonRect.y =  265, 150
-
+# optioin #
 option_buttonSurf, option_buttonRect = init.menu_buttons.getSR(1)
 option_buttonRect.x, option_buttonRect.y = 265, 220
-
+# quit #
 quit_buttonSurf, quit_buttonRect = init.menu_buttons.getSR(2)
 quit_buttonRect.x, quit_buttonRect.y = 265, 289
 

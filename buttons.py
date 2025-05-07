@@ -12,12 +12,12 @@ class Buttons:
        #self.Button = None
         if self.type == 0:
             self.Button = self.Buttons_list[type]
-            return tuple((self.Button.convert(), self.Button.get_rect()))
+            return tuple((self.Button.convert_alpha(), self.Button.get_rect()))
         if self.type == 1:
             self.Button = self.Buttons_list[type]
-            return tuple((self.Button.convert(), self.Button.get_rect()))
+            return tuple((self.Button.convert_alpha(), self.Button.get_rect()))
         if self.type == 2:
             self.Button = self.Buttons_list[type]
-            return tuple((self.Button.convert(), self.Button.get_rect()))
+            return tuple((self.Button.convert_alpha(), self.Button.get_rect()))
     
         
