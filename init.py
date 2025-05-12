@@ -1,8 +1,6 @@
 
-import pygame
-import setting, controls, buttons, char, npc, stages
-import saveData
-
+import pygame, setting, controls, buttons, char, npc, stages, saveData
+import json as js
 # Setting #
 def_setting = setting.Setting(
     600, # width
@@ -18,6 +16,14 @@ def_setting = setting.Setting(
 # Menu #
 
 menu_buttons = buttons.Buttons([
+    pygame.image.load("./card.png"),
+    pygame.image.load("./card.png"),
+    pygame.image.load("./card.png"),
+])
+
+# Level Selection
+
+level_buttons = buttons.Buttons([
     pygame.image.load("./card.png"),
     pygame.image.load("./card.png"),
     pygame.image.load("./card.png"),
@@ -59,8 +65,9 @@ game_properties = buttons.Buttons([
 # Main character in fight scene
 
 # Save Data
-"""save = saveData.SaveData("amp", 0)
-save.save()"""
+
+with open("./SaveData/data.json", "r") as f:
+    save_data = js.load(f)
 
 """main_char = char.Char([
     pygame.image.load("./Gameplay/imgs/char/main/0.png"),

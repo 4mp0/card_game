@@ -7,7 +7,7 @@ class SaveData:
         self.level = level
 
     def save(self):
-        self.saveData = { "Player" : self.name, "Stage" : self.stage }
+        self.saveData = { "Player" : self.name, "level" : self.level }
         with open("./SaveData/data.json", "w") as f:
             js.dump(self.saveData, f)
         

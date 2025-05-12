@@ -2,7 +2,7 @@
 import pygame
 import sys
 import init
-import ingame
+import level_selection
 import option
 
 ### Code is received via init ###
@@ -26,7 +26,7 @@ BG_img = pygame.image.load("./Menu/imgs/bg.jpg").convert()
 # Menu #
 play_buttonSurf, play_buttonRect = init.menu_buttons.getSR(0)
 play_buttonRect.x, play_buttonRect.y =  265, 150
-# optioin #
+# option #
 option_buttonSurf, option_buttonRect = init.menu_buttons.getSR(1)
 option_buttonRect.x, option_buttonRect.y = 265, 220
 # quit #
@@ -51,7 +51,7 @@ while True:
         # Menu Interaction #
         if play_buttonRect.collidepoint(m_x, m_y): # Play #
             if evs.type == pygame.MOUSEBUTTONDOWN:
-                ingame.onTrue(screen, frames, True)
+                level_selection.onTrue(screen, frames, True)
         if option_buttonRect.collidepoint(m_x, m_y): # Option #
             if evs.type == pygame.MOUSEBUTTONDOWN:
                 option.onTrue(screen, frames, True)
