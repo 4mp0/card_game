@@ -1,6 +1,9 @@
 
-import pygame, setting, controls, buttons, char, npc, stages, saveData
+import pygame, setting, controls, buttons, char, npc, stages, save_Data
+import threading, pyaudio
+from vosk import Model, KaldiRecognizer
 import json as js
+
 # Setting #
 def_setting = setting.Setting(
     600, # width
@@ -8,6 +11,29 @@ def_setting = setting.Setting(
     60, # Frames per second
     False # Fullscreen
 )
+
+txt = any
+
+model = Model(r"./vosk-0.15")
+recognizer = KaldiRecognizer(model, 16000)
+
+mic = pyaudio.PyAudio()
+stream = mic.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
+stream.start_stream()
+pause_sr = threading.Event()
+pause_sr.set()
+
+def speech_Recognition():
+    while True:
+        pause_sr.wait()
+        data = stream.read(1024)
+        if recognizer.AcceptWaveform(data):
+            text = recognizer.FinalResult()
+            print("Listening")
+            txt = text[14:-3]
+
+sr_Thread = threading.Thread(target=speech_Recognition)
+sr_Thread.start()
 
 # Background Music #
 

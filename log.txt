@@ -1,9 +1,7 @@
 
-Fight Mechanic
+option:
 
-After the code is done:
-Rewrite the code
-
-Required to build:
-Stages
-
+function
+bool
+event listener
+mouse coords

@@ -1,5 +1,6 @@
 
-import pygame, controls, sys, init
+import pygame, init, controls
+import sys
 
 def onTrue(screen: any, frames: any, bool: bool):
 
@@ -12,6 +13,7 @@ def onTrue(screen: any, frames: any, bool: bool):
     npcHP_visible1, npcHP_visible2, npcHP_visible3 = True, True, True
     pHP_visible1, pHP_visible2, pHP_visible3 = True, True, True
 
+    card1_visible, card2_visible, card3_visible = True, True, True
 
     pygame.mixer_music.stop()
     pygame.mixer_music.unload()
@@ -69,97 +71,111 @@ def onTrue(screen: any, frames: any, bool: bool):
     while bool:
         m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
 
-        for evs in pygame.event.get():
-            if evs.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if player_randCard1Rect.collidepoint(m_x, m_y):
-                if evs.type == pygame.MOUSEBUTTONDOWN:   
-                    if player_rand_Card1 == 0 and npc_rand_Card1 >= 1:
-                        # guard and attack if npc attack #
-                        player.attack()
-                        npc_hp = (npc_hp - 2)                      
-                    if player_rand_Card1 >= 1 and npc_rand_Card1 == 0:
-                        # guard and attack if npc attack #
-                        player.attack()
-                        p_hp = (p_hp - 2)                        
-                    if player_rand_Card1 >= 1 and npc_rand_Card1 >= 1:
-                        # both attack #
-                        player.attack()
-                        npc_hp = (npc_hp - 1)
-                        p_hp = (p_hp - 1)                    
-                    if player_rand_Card1 >= 1 and npc_rand_Card1 == 0:
-                        #if player attack npc will guard and attack #
-                        player.attack()
-                        p_hp = (p_hp - 2)
-                    if player_rand_Card1 == 0 and npc_rand_Card1 == 0:
-                        p_hp = 3
-                        npc_hp = 3
-                    print(player_rand_Card1, npc_rand_Card1)
-
-            if player_randCard2Rect.collidepoint(m_x, m_y):
-                if evs.type == pygame.MOUSEBUTTONDOWN:   
-                    if player_rand_Card2 == 0 and npc_rand_Card2 >= 1:
-                        # guard and attack if npc attack #
-                        player.attack()
-                        npc_hp = (npc_hp - 2)                    
-                    if player_rand_Card2 >= 1 and npc_rand_Card2 == 0:
-                        # guard and attack if npc attack #
-                        player.attack()
-                        p_hp = (p_hp - 2)                       
-                    if player_rand_Card2 >= 1 and npc_rand_Card2 >= 1:
-                        # both attack #
-                        player.attack()
-                        npc_hp = (npc_hp - 1)
-                        p_hp = (p_hp - 1)                        
-                    if player_rand_Card2 >= 1 and npc_rand_Card2 == 0:
-                        #if player attack npc will guard and attack #
-                        player.attack()
-                        p_hp = (p_hp - 2)
-                    if player_rand_Card2 == 0 and npc_rand_Card2 == 0:
-                        p_hp = 3
-                        npc_hp = 3                  
-                    print(player_rand_Card2, npc_rand_Card2)
-
-            if player_randCard3Rect.collidepoint(m_x, m_y):
-                if evs.type == pygame.MOUSEBUTTONDOWN:   
-                    if player_rand_Card3 == 0 and npc_rand_Card3 >= 1:
-                        # guard and attack if npc attack #
-                        player.attack()
-                        npc_hp = (npc_hp - 2)                        
-                    if player_rand_Card3 >= 1 and npc_rand_Card3 == 0:
-                        # guard and attack if npc attack #
-                        player.attack()
-                        p_hp = (p_hp - 2)                        
-                    if player_rand_Card3 >= 1 and npc_rand_Card3 >= 1:
-                        # both attack #
-                        player.attack()
-                        npc_hp = (npc_hp - 1)
-                        p_hp = (p_hp - 1)
-                    if player_rand_Card3 >= 1 and npc_rand_Card3 == 0:
-                        #if player attack npc will guard and attack #
-                        player.attack()
-                        p_hp = (p_hp - 2)
-                    if player_rand_Card3 == 0 and npc_rand_Card3 == 0:
-                        p_hp = 3
-                        npc_hp = 3
-                    print(player_rand_Card3, npc_rand_Card3)
-
         if npc_hp == 0 or npc_hp < 0:
             # Win
-            p_hp = 3
-            npc_hp = 3
-            save = init.saveData.SaveData("user", 1)
-            save.save()
-            bool = False
+            user_data = init.save_Data.SaveData("user", 1)
+            user_data.save()
+            for evs in pygame.event.get():
+                if evs.type == pygame.MOUSEBUTTONDOWN:                 
+                    if evs.type ==pygame.MOUSEBUTTONDOWN: 
+                        bool = False
+
         if p_hp == 0 or p_hp < 0:
             # Game Over
-            p_hp = 3
-            npc_hp = 3
-            save = init.saveData.SaveData("user", 1)
-            save.save()
-            bool = False
-        
+            user_data = init.save_Data.SaveData("user", 0)
+            user_data.save()
+            for evs in pygame.event.get():
+                if screen_rect.collidepoint(m_x, m_y):
+                    if evs.type == pygame.MOUSEBUTTONDOWN:         
+                        bool = False
+
+        for evs in pygame.event.get():
+            if evs.type == pygame.QUIT:
+                init.stream.stop_stream()
+                init.stream.close()
+                pygame.quit()
+                sys.exit()
+                
+            if card1_visible:
+                if player_randCard1Rect.collidepoint(m_x, m_y):
+                    if evs.type == pygame.MOUSEBUTTONDOWN:
+                        print(player_rand_Card1)
+                        card1_visible = False
+                        if player_rand_Card1 == 0 and npc_rand_Card1 == 0:
+                            npc_hp = 3
+                            p_hp = 3
+                        if player_rand_Card1 == 0 and npc_rand_Card1 >= 1:
+                            npc_hp -= 2
+                            player.attack()
+                            bot1.attack()
+                        if player_rand_Card1 >= 1 and npc_rand_Card1 >= 1:
+                            p_hp -= 1
+                            npc_hp -= 1
+                            player.attack()
+                            bot1.attack()
+                        if player_rand_Card1 >= 1 and npc_rand_Card1 == 0:
+                            p_hp -= 2
+                            player.attack()
+                            bot1.attack()
+                            
+            if card2_visible:
+                if player_randCard2Rect.collidepoint(m_x, m_y):
+                    if evs.type == pygame.MOUSEBUTTONDOWN:
+                        card2_visible = False
+                        if player_rand_Card2 == 0 and npc_rand_Card2 == 0:
+                            npc_hp = 3
+                            p_hp = 3
+                        if player_rand_Card2 == 0 and npc_rand_Card2 >= 1:
+                            npc_hp -= 2
+                            player.attack()
+                            bot1.attack()
+                        if player_rand_Card2 >= 1 and npc_rand_Card2 >= 1:
+                            p_hp -= 1
+                            npc_hp -= 1
+                            player.attack()
+                            bot1.attack()
+                        if player_rand_Card2 >= 1 and npc_rand_Card2 == 0:
+                            p_hp -= 2
+                            player.attack()
+                            bot1.attack()
+            
+            if card3_visible:
+                if player_randCard3Rect.collidepoint(m_x, m_y):
+                    if evs.type == pygame.MOUSEBUTTONDOWN:
+                        card3_visible = False
+                        if player_rand_Card3 == 0 and npc_rand_Card3 == 0:
+                            npc_hp = 3
+                            p_hp = 3
+                        if player_rand_Card3 == 0 and npc_rand_Card3 >= 1:
+                            npc_hp -= 2
+                            player.attack()
+                            bot1.attack()
+                        if player_rand_Card3 >= 1 and npc_rand_Card3 >= 1:
+                            p_hp -= 1
+                            npc_hp -= 1
+                            player.attack()
+                            bot1.attack()
+                        if player_rand_Card3 >= 1 and npc_rand_Card3 == 0:
+                            p_hp -= 2
+                            player.attack()
+                            bot1.attack()    
+          
+        if not card1_visible and not card2_visible and not card3_visible:
+            player_rand_Card1 = init.game_properties.getRand() # Random card #
+            player_randCard1, player_randCard1Rect = init.game_properties.getSR(player_rand_Card1) # Select as Card 1 #
+            player_randCard1Rect.x, player_randCard1Rect.y = 0, 100
+            card1_visible = True
+
+            player_rand_Card2 = init.game_properties.getRand() # Random card #   
+            player_randCard2, player_randCard2Rect = init.game_properties.getSR(player_rand_Card2) # Select as Card 2 #
+            player_randCard2Rect.x, player_randCard2Rect.y = 0, 160
+            card2_visible = True
+
+            player_rand_Card3 = init.game_properties.getRand() # Random card #
+            player_randCard3, player_randCard3Rect = init.game_properties.getSR(player_rand_Card3) # Select as Card 2 #
+            player_randCard3Rect.x, player_randCard3Rect.y = 0, 220
+            card3_visible = True
+
         # 1st Layer #
         screen.fill("black")
         screen.blit(pygame.transform.scale(bg_img, (init.def_setting.get_width(), init.def_setting.get_height())), screen_rect)
@@ -196,7 +212,7 @@ def onTrue(screen: any, frames: any, bool: bool):
         if npc_hp < 0:
             npcHP_visible3 = False
 
-        if npcHP_visible1 == True:
+        if npcHP_visible1:
             screen.blit(pygame.transform.scale(npc_heart1, (50, 50)), (npc_heart1Rect.x, npc_heart1Rect.y))
         if npcHP_visible2:
             screen.blit(pygame.transform.scale(npc_heart2, (50, 50)), (npc_heart2Rect.x, npc_heart2Rect.y))
@@ -204,9 +220,12 @@ def onTrue(screen: any, frames: any, bool: bool):
             screen.blit(pygame.transform.scale(npc_heart3, (50, 50)), (npc_heart3Rect.x, npc_heart3Rect.y))
         
         # 3rd Layer #
-        screen.blit(player_randCard1, (player_randCard1Rect.x, player_randCard1Rect.y))
-        screen.blit(player_randCard2,(player_randCard2Rect.x, player_randCard2Rect.y))
-        screen.blit(player_randCard3, (player_randCard3Rect.x, player_randCard3Rect.y))
+        if card1_visible:
+            screen.blit(player_randCard1, (player_randCard1Rect.x, player_randCard1Rect.y))
+        if card2_visible:
+            screen.blit(player_randCard2,(player_randCard2Rect.x, player_randCard2Rect.y))
+        if card3_visible:
+            screen.blit(player_randCard3, (player_randCard3Rect.x, player_randCard3Rect.y))
         
         # 4th Layer #
         char_anim.draw(screen)

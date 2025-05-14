@@ -1,9 +1,5 @@
 
-import pygame
-import sys
-import init
-import level_selection
-import option
+import pygame, sys, init, level_selection, option
 
 ### Code is received via init ###
 
@@ -35,6 +31,29 @@ quit_buttonRect.x, quit_buttonRect.y = 265, 289
 
 while True:
 
+    # Events #
+    m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
+        
+    for evs in pygame.event.get():
+        # Menu Interaction #
+        if play_buttonRect.collidepoint(m_x, m_y):
+            if evs.type == pygame.MOUSEBUTTONDOWN: # play #
+                level_selection.onTrue(screen, frames, True)
+        if option_buttonRect.collidepoint(m_x, m_y):
+            if evs.type == pygame.MOUSEBUTTONDOWN: # option #
+                option.onTrue(screen, frames, True)
+        if quit_buttonRect.collidepoint(m_x, m_y):
+            if evs.type == pygame.MOUSEBUTTONDOWN: # quit #
+                init.stream.stop_stream()
+                init.stream.close()
+                sys.exit()
+        # QUIT #
+        if evs.type == pygame.QUIT:
+            init.stream.stop_stream()
+            init.stream.close()
+            pygame.quit()
+            sys.exit()
+
     #1st Layer #
     screen.fill("black")
     # 2nd Layer #
@@ -44,25 +63,6 @@ while True:
     screen.blit(option_buttonSurf, (option_buttonRect.x, option_buttonRect.y))
     screen.blit(quit_buttonSurf, (quit_buttonRect.x, quit_buttonRect.y))
 
-    # Events #
-    m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
-
-    for evs in pygame.event.get():
-        # Menu Interaction #
-        if play_buttonRect.collidepoint(m_x, m_y): # Play #
-            if evs.type == pygame.MOUSEBUTTONDOWN:
-                level_selection.onTrue(screen, frames, True)
-        if option_buttonRect.collidepoint(m_x, m_y): # Option #
-            if evs.type == pygame.MOUSEBUTTONDOWN:
-                option.onTrue(screen, frames, True)
-        if quit_buttonRect.collidepoint(m_x, m_y): # Quit #
-            if evs.type == pygame.MOUSEBUTTONDOWN:
-                sys.exit()
-        # QUIT #
-        if evs.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
     # Refresh Display #
     pygame.display.update()
-    frames.tick(def_setting.get_fps())
+    frames.tick(init.def_setting.get_fps())

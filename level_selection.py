@@ -25,6 +25,8 @@ def onTrue(screen: any, frames: any, bool: bool):
 
         for evs in pygame.event.get():
             if evs.type == pygame.QUIT:
+                init.stream.stop_stream()
+                init.stream.close()
                 pygame.quit()
                 sys.exit()
 
