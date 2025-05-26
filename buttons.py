@@ -19,5 +19,7 @@ class Buttons:
         if self.type == 2:
             self.Button = self.Buttons_list[type]
             return tuple((self.Button.convert_alpha(), self.Button.get_rect()))
-    
+        if self.type == 3:
+            self.Button = self.Buttons_list[type]
+            return tuple((self.Button.convert_alpha(), self.Button.get_rect()))
         

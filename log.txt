@@ -1,7 +1,3 @@
 
-option:
+pyinstaller --noconsole --onefile --collect-all vosk main.py
 
-function
-bool
-event listener
-mouse coords

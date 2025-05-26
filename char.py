@@ -6,9 +6,14 @@ class Char(pygame.sprite.Sprite):
         super().__init__()
         self.animation = []
         self.current_iter = 0
+
         self.attack_animation = []
         self.attack_current_iter = 0
         self.attack_animBool = False
+        
+        self.guard_animation = []
+        self.guard_current_iter = 0
+        self.guard_animBool = False
 
         self.animation.append(pygame.image.load("./Gameplay/imgs/char/0/0.png"))
         self.animation.append(pygame.image.load("./Gameplay/imgs/char/0/1.png"))
@@ -35,12 +40,23 @@ class Char(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = pos_x, pos_y
 
+        self.guard_animation.append(pygame.image.load("./Gameplay/imgs/char/0/17.png"))
+        self.guard_animation.append(pygame.image.load("./Gameplay/imgs/char/0/18.png"))
+        self.guard_animation.append(pygame.image.load("./Gameplay/imgs/char/0/19.png"))
+        self.guard_animation.append(pygame.image.load("./Gameplay/imgs/char/0/20.png"))
+        self.image = self.guard_animation[self.guard_current_iter]
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = pos_x, pos_y
+
+    def guard(self):
+        self.guard_animBool = True
+
     def attack(self):
         self.attack_animBool = True
 
     def update(self, speed):
 
-        if not self.attack_animBool:
+        if not self.attack_animBool and not self.guard_animBool:
             self.current_iter += speed
             if int(self.current_iter) >= len(self.animation):
                 self.current_iter = 0
@@ -53,3 +69,11 @@ class Char(pygame.sprite.Sprite):
                 if self.attack_current_iter == 0:
                     self.attack_animBool = False
             self.image = self.attack_animation[int(self.attack_current_iter)]
+
+        if self.guard_animBool:
+            self.guard_current_iter += speed
+            if int(self.guard_current_iter) >= len(self.guard_animation):
+                self.guard_current_iter = 0
+                if self.guard_current_iter == 0:
+                    self.guard_animBool = False
+            self.image = self.guard_animation[int(self.guard_current_iter)]

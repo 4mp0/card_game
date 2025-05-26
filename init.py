@@ -1,21 +1,20 @@
 
-import pygame, setting, controls, buttons, char, npc, stages, save_Data
+import pygame, controls, buttons, char, npc, save_Data, book_anim
 import threading, pyaudio
-from vosk import Model, KaldiRecognizer
+import vosk
 import json as js
 
-# Setting #
-def_setting = setting.Setting(
-    600, # width
-    400, #heigt
-    60, # Frames per second
-    False # Fullscreen
-)
 
-txt = any
+# BGM
+bgmMenu_channel = any
 
-model = Model(r"./vosk-0.15")
-recognizer = KaldiRecognizer(model, 16000)
+
+# Sound Effects
+
+click_sfx = False
+
+model = vosk.Model(r"./vosk-0.15")
+recognizer = vosk.KaldiRecognizer(model, 16000)
 
 mic = pyaudio.PyAudio()
 stream = mic.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
@@ -23,29 +22,34 @@ stream.start_stream()
 pause_sr = threading.Event()
 pause_sr.set()
 
+txt = ""
+
 def speech_Recognition():
+    global txt
     while True:
         pause_sr.wait()
         data = stream.read(1024)
         if recognizer.AcceptWaveform(data):
             text = recognizer.FinalResult()
-            print("Listening")
             txt = text[14:-3]
+            print(txt)
 
 sr_Thread = threading.Thread(target=speech_Recognition)
 sr_Thread.start()
 
-# Background Music #
-
-
-
 # Menu #
 
 menu_buttons = buttons.Buttons([
-    pygame.image.load("./card.png"),
-    pygame.image.load("./card.png"),
-    pygame.image.load("./card.png"),
+    pygame.image.load("./Menu/imgs/buttons/play.png"),
+    pygame.image.load("./Menu/imgs/buttons/option.png"),
+    pygame.image.load("./Menu/imgs/buttons/quit.png"),
 ])
+
+option_buttons = buttons.Buttons([
+    pygame.image.load("./Menu/imgs/buttons/back.png")
+])
+
+# Option Buttons
 
 # Level Selection
 
@@ -53,6 +57,7 @@ level_buttons = buttons.Buttons([
     pygame.image.load("./card.png"),
     pygame.image.load("./card.png"),
     pygame.image.load("./card.png"),
+    pygame.image.load("./Menu/imgs/buttons/back.png"),
 ])
 
 # stage / selection #
@@ -82,18 +87,17 @@ game_properties = buttons.Buttons([
     pygame.image.load("./card.png"),
 ])
 
-"""main_char_hearts = buttons.Buttons([
-    pygame.image.load("./Gameplay/imgs/hearts/player/0.jpg"),
-    pygame.image.load("./Gameplay/imgs/hearts/player/1.jpg"),
-    pygame.image.load("./Gameplay/imgs/hearts/player/2.jpg")
-])"""
-
 # Main character in fight scene
 
-# Save Data
+# Load Saved Data
 
 with open("./SaveData/data.json", "r") as f:
     save_data = js.load(f)
+
+# Load Saved Settings
+with open("./Option/settings.json", "r") as f:
+    settings_data = js.load(f)
+print(settings_data)
 
 """main_char = char.Char([
     pygame.image.load("./Gameplay/imgs/char/main/0.png"),
@@ -107,3 +111,9 @@ with open("./SaveData/data.json", "r") as f:
     pygame.image.load("./Gameplay/imgs/char/main/8.png")
 ])"""
 
+
+"""main_char_hearts = buttons.Buttons([
+    pygame.image.load("./Gameplay/imgs/hearts/player/0.jpg"),
+    pygame.image.load("./Gameplay/imgs/hearts/player/1.jpg"),
+    pygame.image.load("./Gameplay/imgs/hearts/player/2.jpg")
+])"""
