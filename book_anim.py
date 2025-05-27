@@ -1,5 +1,5 @@
 
-import pygame, level1, level2
+import pygame, level1, level2, level3
 
 class Book(pygame.sprite.Sprite):
     def __init__(self, pos_x: int, pos_y: int ):
@@ -40,16 +40,8 @@ class Book(pygame.sprite.Sprite):
                 self.bool = False
                 level1.book_thrw = False
                 level2.book_thrw = False
+                level3.book_thrw = False
             self.rect.x = int(self.rect.x)
 
             if self.rect.x == 0:
-                self.rect.x = 120
-
-            print(self.rect.x)
-
-
-
-"""            while self.rect.x < 400:
-                self.rect.x += 1
-                print(self.rect.x)     """     
-                
+                self.rect.x = 120                

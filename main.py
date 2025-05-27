@@ -73,9 +73,13 @@ while True:
     # 1st Layer #
     screen.fill("black")
     # 2nd Layer #
-    screen.blit(pygame.image.frombuffer(img.tobytes(), shape, "BGR"), (0, 0))    
+    if i != 1590:
+        print(i)
+        screen.blit(pygame.image.frombuffer(img.tobytes(), shape, "BGR"), (0, 0))   
+        i += 1 
     # 3rd Layer #
     if skip_vid or not success:
+        i = 1590
         screen.blit(pygame.transform.scale(BG_img, (init.settings_data["width"], init.settings_data["height"])), screenRect)
         screen.blit(play_buttonSurf, (play_buttonRect.x, play_buttonRect.y))
         screen.blit(option_buttonSurf, (option_buttonRect.x, option_buttonRect.y))

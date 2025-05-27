@@ -1,5 +1,6 @@
 
 import pygame, sys, init, controls
+import json as js
 import level1 as lvl1
 import level2 as lvl2
 
@@ -26,6 +27,9 @@ def onTrue(screen: any, frames: any, bool: bool):
 
     while bool:
         m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
+        
+        with open("./SaveData/data.json", "r") as f:
+            save_data = js.load(f)
 
         for evs in pygame.event.get():
             if evs.type == pygame.QUIT:
@@ -37,17 +41,20 @@ def onTrue(screen: any, frames: any, bool: bool):
             if level1_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
                     init.click_sfx = True
-                    if init.save_data["level"] >= 0:
+                    if save_data["level"] == 0 or save_data["level"] >= 0:
+                        print(save_data["level"])
                         lvl1.onTrue(screen, frames, bool)
             if level2_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
                     init.click_sfx = True
-                    if init.save_data["level"] >= 1:
+                    print(save_data["level"])
+                    if save_data["level"] == 1 or save_data["level"] >= 1:
                         lvl2.onTrue(screen, frames, bool)
             if level3_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
+                    print(save_data["level"])
                     init.click_sfx = True
-                    if init.save_data["level"] == 2:
+                    if save_data["level"] >= 2:
                         lvl1.onTrue(screen, frames, bool)
             if back_button_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
@@ -67,8 +74,8 @@ def onTrue(screen: any, frames: any, bool: bool):
         screen.blit(pygame.transform.scale(bg_img3, (init.settings_data["width"], init.settings_data["height"])), screen_rect)
         
         screen.blit(back_button, (back_button_Rect.x, back_button_Rect.y))
-        screen.blit(pygame.transform.scale(level1, (50, 50)), (level1_Rect.x, level1_Rect.y))
-        screen.blit(pygame.transform.scale(level2, (50, 50)), (level2_Rect.x, level2_Rect.y))
-        screen.blit(pygame.transform.scale(level3, (50, 50)), (level3_Rect.x, level3_Rect.y))
+        screen.blit(level1, (level1_Rect.x, level1_Rect.y))
+        screen.blit(level2, (level2_Rect.x, level2_Rect.y))
+        screen.blit(level3, (level3_Rect.x, level3_Rect.y))
         pygame.display.update()
         frames.tick(init.settings_data["fps"])

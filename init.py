@@ -54,9 +54,9 @@ option_buttons = buttons.Buttons([
 # Level Selection
 
 level_buttons = buttons.Buttons([
-    pygame.image.load("./card.png"),
-    pygame.image.load("./card.png"),
-    pygame.image.load("./card.png"),
+    pygame.image.load("./assets/imgs/lvl-selection/1.png"),
+    pygame.image.load("./assets/imgs/lvl-selection/2.png"),
+    pygame.image.load("./assets/imgs/lvl-selection/3.png"),
     pygame.image.load("./Menu/imgs/buttons/back.png"),
 ])
 
@@ -82,9 +82,9 @@ npc_hp = buttons.Buttons([
 fight_sceneBG = pygame.image.load("./Gameplay/imgs/bg/bg1.png")
 
 game_properties = buttons.Buttons([
-    pygame.image.load("./card.png"),
-    pygame.image.load("./card.png"),
-    pygame.image.load("./card.png"),
+    pygame.image.load("./Gameplay/imgs/cards/0.png"),
+    pygame.image.load("./Gameplay/imgs/cards/1.png"),
+    pygame.image.load("./Gameplay/imgs/cards/2.png"),
 ])
 
 # Main character in fight scene
@@ -97,7 +97,7 @@ with open("./SaveData/data.json", "r") as f:
 # Load Saved Settings
 with open("./Option/settings.json", "r") as f:
     settings_data = js.load(f)
-print(settings_data)
+
 
 """main_char = char.Char([
     pygame.image.load("./Gameplay/imgs/char/main/0.png"),

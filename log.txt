@@ -1,3 +1,0 @@
-
-pyinstaller --noconsole --onefile --collect-all vosk main.py
-

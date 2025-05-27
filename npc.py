@@ -1,5 +1,5 @@
 
-import pygame, level1
+import pygame, level1, level2, level3
 
 class NPC(pygame.sprite.Sprite):
     def __init__(self, pos_x: int, pos_y: int ):
@@ -79,7 +79,7 @@ class NPC(pygame.sprite.Sprite):
                 self.current_iter = 0
             self.image = self.animation[int(self.current_iter)]
 
-        if self.attack_animBool and not level1.book_thrw:
+        if self.attack_animBool and not level1.book_thrw and not level2.book_thrw and not level3.book_thrw:
             self.rect.x -= 2
             self.walk_current_iter += speed
             if int(self.walk_current_iter) >= len(self.walk_animation):

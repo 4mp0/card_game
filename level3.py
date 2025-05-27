@@ -20,7 +20,7 @@ def onTrue(screen: any, frames: any, bool: bool):
 
     global book_thrw
 
-    bgm_lvl1 = pygame.mixer.Sound("./assets/bgm/lvl/2.mp3")
+    bgm_lvl1 = pygame.mixer.Sound("./assets/bgm/lvl/3.mp3")
     channel = bgm_lvl1.play()
     channel.set_volume(0.5)
 
@@ -123,7 +123,7 @@ def onTrue(screen: any, frames: any, bool: bool):
         if npc_hp == 0 or npc_hp < 0:
             # Win
             win_bool = not True
-            user_data = init.save_Data.SaveData("user", 2)
+            user_data = init.save_Data.SaveData("user", 3)
             user_data.save()
             for evs in pygame.event.get():
                 if evs.type == pygame.MOUSEBUTTONDOWN:                 
