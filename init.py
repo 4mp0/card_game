@@ -1,5 +1,5 @@
 
-import pygame, controls, buttons, char, npc, save_Data, book_anim
+import pygame, controls, buttons, char, npc, save_Data, book_anim, save_setting
 import threading, pyaudio
 import vosk
 import json as js
@@ -98,22 +98,3 @@ with open("./SaveData/data.json", "r") as f:
 with open("./Option/settings.json", "r") as f:
     settings_data = js.load(f)
 
-
-"""main_char = char.Char([
-    pygame.image.load("./Gameplay/imgs/char/main/0.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/1.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/2.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/3.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/4.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/5.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/6.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/7.png"),
-    pygame.image.load("./Gameplay/imgs/char/main/8.png")
-])"""
-
-
-"""main_char_hearts = buttons.Buttons([
-    pygame.image.load("./Gameplay/imgs/hearts/player/0.jpg"),
-    pygame.image.load("./Gameplay/imgs/hearts/player/1.jpg"),
-    pygame.image.load("./Gameplay/imgs/hearts/player/2.jpg")
-])"""

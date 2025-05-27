@@ -14,13 +14,13 @@ def onTrue(screen: any, frames: any, bool: bool):
     bg_img3 = pygame.image.load("./Gameplay/imgs/bg/level-selection/bg/4.png")
 
     level1, level1_Rect = init.level_buttons.getSR(0)
-    level1_Rect.x, level1_Rect.y = 0, 100
+    level1_Rect.x, level1_Rect.y = 150, 150
 
     level2, level2_Rect = init.level_buttons.getSR(1)
-    level2_Rect.x, level2_Rect.y = 70, 100
+    level2_Rect.x, level2_Rect.y = 250, 150
 
     level3, level3_Rect = init.level_buttons.getSR(2)
-    level3_Rect.x, level3_Rect.y = 140, 100
+    level3_Rect.x, level3_Rect.y = 350, 150
 
     back_button, back_button_Rect = init.level_buttons.getSR(3)
     back_button_Rect.x, back_button_Rect.y = 0, 0

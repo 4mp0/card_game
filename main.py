@@ -1,6 +1,7 @@
 
 import pygame, sys
-import cv2
+import cv2, pyttsx3
+import json as js
 import init
 import level_selection, option
 
@@ -10,7 +11,7 @@ controls = init.controls
 
 pygame.init()
 
-pygame.display.set_caption("Card Game")
+pygame.display.set_caption("The Game of Luck")
 
 screen = pygame.display.set_mode((init.settings_data["width"], init.settings_data["height"]))
 screenRect = screen.get_rect()
@@ -21,9 +22,8 @@ shape = img.shape[1::-1]
 frames = pygame.time.Clock()
 
 bgm_menu = pygame.mixer.Sound("./assets/bgm/menu/Hopes and Dreams.mp3")
-init.bgmMenu_channel = bgm_menu.play()
-init.bgmMenu_channel.set_volume(0.3)
-
+init.bgmMenu_channel = bgm_menu.play(999)
+init.bgmMenu_channel.set_volume(init.settings_data["bgm_vol"])
 # Menu BG #
 BG_img = pygame.image.load("./Menu/imgs/bg/bg.jpg").convert()
 # Menu #
@@ -36,14 +36,22 @@ option_buttonRect.x, option_buttonRect.y = 265, 220
 quit_buttonSurf, quit_buttonRect = init.menu_buttons.getSR(2)
 quit_buttonRect.x, quit_buttonRect.y = 265, 289
 
-skip_vid = False
+title = pygame.image.load("./Menu/imgs/title.png").convert_alpha()
+title_rect = title.get_rect()
+title_rect.x, title_rect.y = 170, -40
 
+skip_vid = False
 i = 0
 
 while True:
     # Events #
+    with open("./Option/settings.json", "r") as f:
+        settings_data = js.load(f)
+    init.bgmMenu_channel.set_volume(settings_data["bgm_vol"])
+
     m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
     success, img = vcap.read()
+
     for evs in pygame.event.get():
         # Menu Interaction #
         if screenRect.collidepoint(m_x, m_y):
@@ -73,14 +81,18 @@ while True:
     # 1st Layer #
     screen.fill("black")
     # 2nd Layer #
-    if i != 1590:
+    if i != 419:
         print(i)
         screen.blit(pygame.image.frombuffer(img.tobytes(), shape, "BGR"), (0, 0))   
-        i += 1 
+        i += 1
+    if i == 298:
+        i+=1
+        pyttsx3.speak("you can also say one, two, three to the microphone to select a card.")
     # 3rd Layer #
     if skip_vid or not success:
-        i = 1590
+        i = 419
         screen.blit(pygame.transform.scale(BG_img, (init.settings_data["width"], init.settings_data["height"])), screenRect)
+        screen.blit(title, (title_rect.x, title_rect.y))
         screen.blit(play_buttonSurf, (play_buttonRect.x, play_buttonRect.y))
         screen.blit(option_buttonSurf, (option_buttonRect.x, option_buttonRect.y))
         screen.blit(quit_buttonSurf, (quit_buttonRect.x, quit_buttonRect.y))

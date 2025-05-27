@@ -1,7 +1,7 @@
 
 import pygame, init, controls
 import sys
-
+import json as js
 book_thrw = False
 p_1, p_2, n_1, n_2 = True, True, True, True
 p_1_1, p_2_1, n_1_1, n_2_1 = True, True, True, True
@@ -22,7 +22,7 @@ def onTrue(screen: any, frames: any, bool: bool):
 
     bgm_lvl1 = pygame.mixer.Sound("./assets/bgm/lvl/1.mp3")
     channel = bgm_lvl1.play()
-    channel.set_volume(0.5)
+    channel.set_volume(0.1)
 
     p_hp = init.player_Health
     npc_hp = init.npc_Health
@@ -113,11 +113,13 @@ def onTrue(screen: any, frames: any, bool: bool):
     
     while bool:
         m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
+        with open("./Option/settings.json", "r") as f:
+            settings_data = js.load(f)
 
         if init.click_sfx:
             onclick_sfx = pygame.mixer.Sound("./assets/sfx/click.mp3")
             channel_sfx = onclick_sfx.play()
-            channel_sfx.set_volume(1)
+            channel_sfx.set_volume(settings_data["sfx_vol"])
             init.click_sfx = False
 
         if npc_hp == 0 or npc_hp < 0:
@@ -156,8 +158,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if player_rand_Card1 == 0 and npc_rand_Card1 == 0:
                     player.guard()
                     bot.guard()
-                    npc_hp = 3
-                    p_hp = 3
                 if player_rand_Card1 == 1 and npc_rand_Card1 == 1:
                     bot.attack()
                     player.attack()
@@ -216,8 +216,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if player_rand_Card2 == 0 and npc_rand_Card2 == 0:
                     player.guard()
                     bot.guard()
-                    npc_hp = 3
-                    p_hp = 3
                 if player_rand_Card2 == 1 and npc_rand_Card2 == 1:
                     bot.attack()
                     player.attack()
@@ -277,8 +275,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if player_rand_Card3 == 0 and npc_rand_Card3 == 0:
                     player.guard()
                     bot.guard()
-                    npc_hp = 3
-                    p_hp = 3
                 if player_rand_Card3 == 1 and npc_rand_Card3 == 1:
                     bot.attack()
                     player.attack()
@@ -346,15 +342,11 @@ def onTrue(screen: any, frames: any, bool: bool):
                         if player_rand_Card1 == 0 and npc_rand_Card1 == 0:
                             player.guard()
                             bot.guard()
-                            npc_hp = 3
-                            p_hp = 3
                         if player_rand_Card1 == 1 and npc_rand_Card1 == 1:
                             bot.attack()
                             player.attack()
                             book_thrw = True
                             book.book_bool()
-                            p_hp -= 1
-                            npc_hp -= 1
                             n_1 = not True
                             n_1_1 = not True
                         if player_rand_Card1 == 1 and npc_rand_Card1 == 0:
@@ -408,8 +400,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                         if player_rand_Card2 == 0 and npc_rand_Card2 == 0:
                             player.guard()
                             bot.guard()
-                            npc_hp = 3
-                            p_hp = 3
                         if player_rand_Card2 == 1 and npc_rand_Card2 == 1:
                             bot.attack()
                             player.attack()
@@ -470,8 +460,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                         if player_rand_Card3 == 0 and npc_rand_Card3 == 0:
                             player.guard()
                             bot.guard()
-                            npc_hp = 3
-                            p_hp = 3
                         if player_rand_Card3 == 1 and npc_rand_Card3 == 1:
                             bot.attack()
                             player.attack()

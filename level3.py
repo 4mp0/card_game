@@ -10,10 +10,10 @@ def onTrue(screen: any, frames: any, bool: bool):
 
     screen_rect = screen.get_rect()
     
-    bg_layer0 = pygame.image.load("./Gameplay/imgs/bg/lvl2/1.png").convert_alpha()
-    bg_layer1 = pygame.image.load("./Gameplay/imgs/bg/lvl2/2.png").convert_alpha()
-    bg_layer2 = pygame.image.load("./Gameplay/imgs/bg/lvl2/3.png").convert_alpha()
-    bg_layer3 = pygame.image.load("./Gameplay/imgs/bg/lvl2/4.png").convert_alpha()
+    bg_layer0 = pygame.image.load("./Gameplay/imgs/bg/lvl1/1.png").convert_alpha()
+    bg_layer1 = pygame.image.load("./Gameplay/imgs/bg/lvl1/2.png").convert_alpha()
+    bg_layer2 = pygame.image.load("./Gameplay/imgs/bg/lvl1/3.png").convert_alpha()
+    bg_layer3 = pygame.image.load("./Gameplay/imgs/bg/lvl1/4.png").convert_alpha()
     
     bgmMenu_channel = init.bgmMenu_channel
     bgmMenu_channel.pause()
@@ -22,7 +22,7 @@ def onTrue(screen: any, frames: any, bool: bool):
 
     bgm_lvl1 = pygame.mixer.Sound("./assets/bgm/lvl/3.mp3")
     channel = bgm_lvl1.play()
-    channel.set_volume(0.5)
+    channel.set_volume(0.2)
 
     p_hp = init.player_Health
     npc_hp = init.npc_Health
@@ -156,8 +156,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if player_rand_Card1 == 0 and npc_rand_Card1 == 0:
                     player.guard()
                     bot.guard()
-                    npc_hp = 3
-                    p_hp = 3
                 if player_rand_Card1 == 1 and npc_rand_Card1 == 1:
                     bot.attack()
                     player.attack()
@@ -216,8 +214,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if player_rand_Card2 == 0 and npc_rand_Card2 == 0:
                     player.guard()
                     bot.guard()
-                    npc_hp = 3
-                    p_hp = 3
                 if player_rand_Card2 == 1 and npc_rand_Card2 == 1:
                     bot.attack()
                     player.attack()
@@ -277,8 +273,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if player_rand_Card3 == 0 and npc_rand_Card3 == 0:
                     player.guard()
                     bot.guard()
-                    npc_hp = 3
-                    p_hp = 3
                 if player_rand_Card3 == 1 and npc_rand_Card3 == 1:
                     bot.attack()
                     player.attack()
@@ -346,15 +340,11 @@ def onTrue(screen: any, frames: any, bool: bool):
                         if player_rand_Card1 == 0 and npc_rand_Card1 == 0:
                             player.guard()
                             bot.guard()
-                            npc_hp = 3
-                            p_hp = 3
                         if player_rand_Card1 == 1 and npc_rand_Card1 == 1:
                             bot.attack()
                             player.attack()
                             book_thrw = True
                             book.book_bool()
-                            p_hp -= 1
-                            npc_hp -= 1
                             n_1 = not True
                             n_1_1 = not True
                         if player_rand_Card1 == 1 and npc_rand_Card1 == 0:
@@ -408,8 +398,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                         if player_rand_Card2 == 0 and npc_rand_Card2 == 0:
                             player.guard()
                             bot.guard()
-                            npc_hp = 3
-                            p_hp = 3
                         if player_rand_Card2 == 1 and npc_rand_Card2 == 1:
                             bot.attack()
                             player.attack()
@@ -470,8 +458,6 @@ def onTrue(screen: any, frames: any, bool: bool):
                         if player_rand_Card3 == 0 and npc_rand_Card3 == 0:
                             player.guard()
                             bot.guard()
-                            npc_hp = 3
-                            p_hp = 3
                         if player_rand_Card3 == 1 and npc_rand_Card3 == 1:
                             bot.attack()
                             player.attack()
