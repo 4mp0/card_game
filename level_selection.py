@@ -3,6 +3,7 @@ import pygame, sys, init, controls
 import json as js
 import level1 as lvl1
 import level2 as lvl2
+import level3 as lvl3
 
 def onTrue(screen: any, frames: any, bool: bool):
     
@@ -22,8 +23,18 @@ def onTrue(screen: any, frames: any, bool: bool):
     level3, level3_Rect = init.level_buttons.getSR(2)
     level3_Rect.x, level3_Rect.y = 350, 150
 
+    level2_u = pygame.image.load("./assets/imgs/lvl-selection/2_2.png").convert_alpha()
+    level2_u_Rect = level2_u.get_rect()
+    level2_u_Rect.x, level2_u_Rect.y = 250, 150
+
+    level3_u = pygame.image.load("./assets/imgs/lvl-selection/3_3.png").convert_alpha()
+    level3_u_Rect = level3_u.get_rect()
+    level3_u_Rect.x, level3_u_Rect.y = 350, 150
+
     back_button, back_button_Rect = init.level_buttons.getSR(3)
     back_button_Rect.x, back_button_Rect.y = 0, 0
+
+    visible1, visible2 = True, True
 
     while bool:
         m_x, m_y = controls.Controls(pygame.mouse.get_pos()).get_m_XY()
@@ -42,20 +53,17 @@ def onTrue(screen: any, frames: any, bool: bool):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
                     init.click_sfx = True
                     if save_data["level"] == 0 or save_data["level"] >= 0:
-                        print(save_data["level"])
                         lvl1.onTrue(screen, frames, bool)
             if level2_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
                     init.click_sfx = True
-                    print(save_data["level"])
                     if save_data["level"] == 1 or save_data["level"] >= 1:
                         lvl2.onTrue(screen, frames, bool)
             if level3_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
-                    print(save_data["level"])
                     init.click_sfx = True
                     if save_data["level"] >= 2:
-                        lvl1.onTrue(screen, frames, bool)
+                        lvl3.onTrue(screen, frames, bool)
             if back_button_Rect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
                     init.click_sfx = True
@@ -75,7 +83,21 @@ def onTrue(screen: any, frames: any, bool: bool):
         
         screen.blit(back_button, (back_button_Rect.x, back_button_Rect.y))
         screen.blit(level1, (level1_Rect.x, level1_Rect.y))
-        screen.blit(level2, (level2_Rect.x, level2_Rect.y))
-        screen.blit(level3, (level3_Rect.x, level3_Rect.y))
+
+        if save_data["level"] != 1:
+            screen.blit(level2_u, (level2_u_Rect.x, level2_Rect.y))
+        if save_data["level"] != 2:
+            screen.blit(level3_u, (level3_u_Rect.x, level3_Rect.y))  
+
+        if save_data["level"] == 1:
+            visible1 = not True
+        if save_data["level"] == 2:
+            visible2 = not True
+
+        if not visible1:
+            screen.blit(level2, (level2_Rect.x, level2_Rect.y))
+        if not visible2:
+            screen.blit(level3, (level3_Rect.x, level3_Rect.y))  
+
         pygame.display.update()
         frames.tick(init.settings_data["fps"])

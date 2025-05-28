@@ -42,6 +42,20 @@ def onTrue(screen: any, frames: any, bool : bool):
     txtSFX_rect = txtSFX.get_rect()
     txtSFX_rect.x, txtSFX_rect.y = 0, 50
     
+    tutor = pygame.image.load("./option/imgs/tutorial.png").convert_alpha()
+    tutorRect = tutor.get_rect()
+    tutorRect.x, tutorRect.y = 100, 150
+
+    aboutUs = pygame.image.load("./option/imgs/aboutus.png").convert_alpha()
+    aboutRect = aboutUs.get_rect()
+    aboutRect.x, aboutRect.y = 100, 150
+
+    aboutGame = pygame.image.load("./option/imgs/aboutgame.png").convert_alpha()
+    aboutgameRect = aboutUs.get_rect()
+    aboutgameRect.x, aboutgameRect.y = 100, 150
+
+    vs1, vs2, vs3 = True, True, not True
+
     while bool:
         with open("./Option/settings.json", "r") as f:
             settings_data = js.load(f)
@@ -53,18 +67,15 @@ def onTrue(screen: any, frames: any, bool : bool):
                 init.stream.close()
                 pygame.quit()
                 sys.exit()
-            if bgm_arrow_upRect.collidepoint(m_x, m_y):
+            if aboutgameRect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
-                    init.click_sfx = True
-                    bgm_vol += 0.01
-            if bgm_arrow_downRect.collidepoint(m_x, m_y):
+                    vs3 = True
+            if aboutRect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
-                    init.click_sfx = True
-                    bgm_vol -= 0.01
-            if sfx_arrow_upRect.collidepoint(m_x, m_y):
+                    vs1 = not True
+            if tutorRect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
-                    init.click_sfx = True
-                    sfx_vol += 0.01
+                    vs2 = not True
             if sfx_arrow_downRect.collidepoint(m_x, m_y):
                 if evs.type == pygame.MOUSEBUTTONDOWN:
                     init.click_sfx = True
@@ -95,6 +106,13 @@ def onTrue(screen: any, frames: any, bool : bool):
 
         screen.blit(sfx_arrow_up, (sfx_arrow_upRect.x, sfx_arrow_upRect.y))
         screen.blit(sfx_arrow_down, (sfx_arrow_downRect.x, sfx_arrow_downRect.y))
+
+        if not vs1:
+            screen.blit(pygame.transform.scale(aboutUs, (400, 250)), (aboutRect.x, aboutRect.y))
+        if not vs2:
+            screen.blit(pygame.transform.scale(tutor, (400, 250)), (tutorRect.x, tutorRect.y))
+        if not vs3:
+            screen.blit(pygame.transform.scale(aboutGame, (400, 250)), (aboutgameRect.x, aboutgameRect.y))
 
         screen.blit(back_button, (back_button_Rect.x, back_button_Rect.y))
 

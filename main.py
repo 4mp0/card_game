@@ -81,16 +81,13 @@ while True:
     # 1st Layer #
     screen.fill("black")
     # 2nd Layer #
-    if i != 419:
+    if i != 1199:
         print(i)
         screen.blit(pygame.image.frombuffer(img.tobytes(), shape, "BGR"), (0, 0))   
         i += 1
-    if i == 298:
-        i+=1
-        pyttsx3.speak("you can also say one, two, three to the microphone to select a card.")
     # 3rd Layer #
     if skip_vid or not success:
-        i = 419
+        i = 1199
         screen.blit(pygame.transform.scale(BG_img, (init.settings_data["width"], init.settings_data["height"])), screenRect)
         screen.blit(title, (title_rect.x, title_rect.y))
         screen.blit(play_buttonSurf, (play_buttonRect.x, play_buttonRect.y))
